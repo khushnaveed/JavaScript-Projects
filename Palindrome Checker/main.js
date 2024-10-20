@@ -5,7 +5,7 @@ import boxen from "boxen";
 
 import centerBoxedMessage from "./functions.js";
 import { Palindrome } from "./classes.js";
-import { description, welcome } from "./variables.js";
+import { description, welcome, palindromeExamples } from "./variables.js";
 import { table } from "./table.js";
 
 console.clear();
@@ -30,3 +30,12 @@ console.log(centerBoxedMessage(description));
 console.log(centerBoxedMessage(table.toString()));
 
 //Print different option for user to select
+const prompt = inquirer.createPromptModule();
+const choices = Object.keys(palindromeExamples);
+const answer1 = await prompt({
+  type: "list",
+  name: "Selected Option",
+  message: "Select your option >> ",
+  choices: choices,
+});
+console.log(answer1);
