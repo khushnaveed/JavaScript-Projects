@@ -1,31 +1,32 @@
 import inquirer from "inquirer";
 import ora from "ora";
-import chalk  from "chalk";
-import boxen from 'boxen';
+import chalk from "chalk";
+import boxen from "boxen";
 
-import centerBoxedMessage from './functions.js';
-import { Palindrome } from './classes.js';
-
-
+import centerBoxedMessage from "./functions.js";
+import { Palindrome } from "./classes.js";
+import { description, welcome } from "./variables.js";
+import { table } from "./table.js";
 
 console.clear();
 
-const palindrome = new Palindrome("My age is 0, 0 si ega ym.");
+/* const palindrome = new Palindrome("My age is 0, 0 si ega ym.");
 console.log(palindrome.checkText());
+ */
 
 // creating and styling welcome message
-const msg = chalk.italic.bold("Welcome to Palindrome wordplay!")
-console.log("Little Background behind it: A palindrome is a word, phrase, number, or sequence of characters that reads the same forward and backward, ignoring spaces, punctuation, and capitalization. Some common examples include:");
-
-// Create a boxed message
-const boxedMsg = boxen(msg, { 
-  padding: 1, 
-  borderStyle: 'double', 
-  borderColor: 'cyan',
+const msg = chalk.italic.bold(welcome);
+const boxedMsg = boxen(msg, {
+  padding: 1,
+  borderStyle: "double",
+  borderColor: "cyan",
 });
 
-// Center the boxed message
-const centeredBox = centerBoxedMessage(boxedMsg);
+console.log(centerBoxedMessage(boxedMsg));
+console.log(chalk.underline("\nLittle Background behind it:\n"));
+console.log(centerBoxedMessage(description));
 
-// Print the centered boxed message
-console.log(centeredBox);
+// Print the styled table
+console.log(centerBoxedMessage(table.toString()));
+
+//Print different option for user to select
