@@ -16,10 +16,10 @@ export class Palindrome {
     const reverseText = cleanStr.split("").reverse().join("");
     return cleanStr === reverseText
       ? centerBoxedMessage(
-          chalk.cyan.bgWhite(`...."${this.str}"...."\nPalindrome: Correct!`)
+          chalk.cyan.bgWhite(`...."Palindrome: Correct!"....\n`)
         )
       : centerBoxedMessage(
-          chalk.bgRed(`...."${this.str}"...."\nPalindrome: Incorrect!`)
+          chalk.bgRed(`...."Palindrome: Incorrect!"....\n`)
         );
   }
 }

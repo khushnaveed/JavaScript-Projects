@@ -52,7 +52,6 @@ do {
                   return isValid || "Please enter a valid word (letters only).";
               },
           });
-          console.log(`\nYou entered the Single word: ${wordInput.wordPalindrome}\n`);
           const palindrome0 = new Palindrome(wordInput.wordPalindrome);
           console.log(palindrome0.checkText());
           break;
@@ -67,7 +66,6 @@ do {
                   return isValid || "Please enter a valid number.";
               },
           });
-          console.log(`\nYou entered the number: ${numberInput.numberPalindrome}\n`);
           const palindrome1 = new Palindrome(numberInput.numberPalindrome);
           console.log(palindrome1.checkText());
           break;
@@ -78,7 +76,6 @@ do {
               name: "sentencePalindrome",
               message: `Enter a Sentence palindrome for ${selectedChoice}:\n`,
           });
-          console.log(`\nYou entered the Sentence: ${sentenceInput.sentencePalindrome}\n`);
           const palindrome2 = new Palindrome(sentenceInput.sentencePalindrome);
           console.log(palindrome2.checkText());
           break;
