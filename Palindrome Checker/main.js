@@ -1,23 +1,17 @@
 import inquirer from "inquirer";
-import ora from "ora";
 import chalk from "chalk";
-
 
 import centerBoxedMessage from "./functions.js";
 import { Palindrome } from "./classes.js";
 import {
   description,
-  welcome,
   palindromeExamples,
   boxedMsg,
 } from "./variables.js";
 import { table } from "./table.js";
 
-console.clear();
 
-/* const palindrome = new Palindrome("My age is 0, 0 si ega ym.");
-console.log(palindrome.checkText());
- */
+console.clear(); 
 
 // creating and styling welcome message
 console.log(centerBoxedMessage(boxedMsg));
@@ -36,58 +30,67 @@ const indexToRemove = choices.indexOf("Phrases");
 choices.splice(indexToRemove, 1); 
 
 do {
+
   const answer1 = await inquirer.prompt({
       type: "list",
       name: "Selected Option",
-      message: "Select your option >> ",
+      message: "Select your option >> \n",
       choices: choices,
   });
 
-  const selectedChoice = answer1["Selected Option"];
+  const selectedChoice = answer1["Selected Option"]; 
 
   switch (selectedChoice) {
+
       case choices[0]: // Single Words
           const wordInput = await inquirer.prompt({
               type: "input",
               name: "wordPalindrome",
-              message: `Enter a Single Word palindrome for ${selectedChoice}:`,
+              message: `Enter a Single Word palindrome for ${selectedChoice}:\n`,
               validate: function (input) {
                   const isValid = /^[A-Za-z]+$/.test(input);
                   return isValid || "Please enter a valid word (letters only).";
               },
           });
-          console.log(`You entered the Single word: ${wordInput.wordPalindrome}`);
+          console.log(`\nYou entered the Single word: ${wordInput.wordPalindrome}\n`);
+          const palindrome0 = new Palindrome(wordInput.wordPalindrome);
+          console.log(palindrome0.checkText());
           break;
 
       case choices[1]: // Numbers
           const numberInput = await inquirer.prompt({
               type: "input",
               name: "numberPalindrome",
-              message: `Enter a number palindrome for ${selectedChoice}:`,
+              message: `Enter a number palindrome for ${selectedChoice}:\n`,
               validate: function (input) {
                   const isValid = /^\d+$/.test(input); // Check if input is a number
                   return isValid || "Please enter a valid number.";
               },
           });
-          console.log(`You entered the number: ${numberInput.numberPalindrome}`);
+          console.log(`\nYou entered the number: ${numberInput.numberPalindrome}\n`);
+          const palindrome1 = new Palindrome(numberInput.numberPalindrome);
+          console.log(palindrome1.checkText());
           break;
 
       case choices[2]: // Sentences
           const sentenceInput = await inquirer.prompt({
               type: "input",
               name: "sentencePalindrome",
-              message: `Enter a Sentence palindrome for ${selectedChoice}:`,
+              message: `Enter a Sentence palindrome for ${selectedChoice}:\n`,
           });
-          console.log(`You entered the Sentence: ${sentenceInput.sentencePalindrome}`);
+          console.log(`\nYou entered the Sentence: ${sentenceInput.sentencePalindrome}\n`);
+          const palindrome2 = new Palindrome(sentenceInput.sentencePalindrome);
+          console.log(palindrome2.checkText());
           break;
 
       case choices[3]: // Quit
-          console.log("Exiting program...");
+          console.log("Exiting program...\n");
           process.exit(0);
           break;
 
       default:
-          console.log(`You selected: ${selectedChoice}`);
+          console.log(`\nYou selected: ${selectedChoice}\nThis is an invalid option..!\NTry again..!`);
           break;
   }
+
 } while (true);
