@@ -1,7 +1,19 @@
+import boxen from "boxen";
+import chalk from "chalk";
+
+
 export const welcome = "Welcome to Palindrome wordplay!";
+const msg = chalk.italic.bold(welcome);
 
 export const description = "A palindrome is a word, phrase, number, or sequence of characters that reads the same forward and backward, ignoring spaces, punctuation, and capitalization. Some common examples include: \n";
 
+
+export const boxedMsg = boxen(msg, {
+    padding: 1,
+    borderStyle: "double",
+    borderColor: "cyan",
+  });
+  
 export const palindromeExamples = {
   "Single Words": [
       "Racecar",
@@ -10,7 +22,7 @@ export const palindromeExamples = {
       "Civic",
       "Madam"
   ],
-  "Phrases (Ignoring Spaces and Punctuation)": [
+  "Phrases": [
       "A man, a plan, a canal, Panama!",
       "Was it a car or a cat I saw?",
       "No lemon, no melon",
@@ -32,3 +44,4 @@ export const palindromeExamples = {
       "Step on no pets."
   ]
 };
+
