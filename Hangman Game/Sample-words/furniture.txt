@@ -1,0 +1,7 @@
+chair
+table
+bed
+sofa
+bookshelf
+stool
+cupboards
