@@ -6,8 +6,10 @@ import {
   centerBoxedMessage,
   getRandomWord,
   gameWordPuzzle,
+  gameWin,
+  processGuess,
 } from "./functions.js";
-import { boxedMsg, boxedMsgGameOver, boxedMsgCongrats } from "./variables.js";
+import { boxedMsg, boxedMsgGameOver } from "./variables.js";
 
 console.clear();
 
@@ -40,11 +42,12 @@ do {
       // setting couter as maximum number of user's guesses
       let counter = gameWordMap.length + 5;
       console.log("Length of the word: ", gameWordMap.length); // sending hint
+      console.log(centerBoxedMessage(chalk.bold(gameWordMap)));
 
       // do while loop untill the user run out of the maximum guesses
       do {
         console.log("Remianing Chances: ", counter);
-        // getting alphabets step by step from the user
+
         const guessAlphabet = await inquirer.prompt({
           type: "input",
           name: "Word",
@@ -57,70 +60,118 @@ do {
           },
         });
 
-        if (randomWord.includes(guessAlphabet.Word)) {
-          // Check if the letter is already in gameWord to avoid repeated guesses
-          if (gameWordMap.includes(guessAlphabet.Word)) {
-            console.log(
-              "You've already guessed that letter! Try a different one."
-            );
-          } else {
-            // Update all occurrences of the guessed letter in gameWord
-            randomWord.forEach((letter, index) => {
-              if (letter === guessAlphabet.Word) {
-                gameWordMap[index] = guessAlphabet.Word;
-              }
-            });
-            console.log("Correct Guess ✅");
-            console.log(gameWordMap);
-          }
-        } else {
-          console.log("Incorrect Guess ❌");
-        }
+        // calling processGuess function to process the guess word with the random word array
+        processGuess(randomWord, guessAlphabet.Word, gameWordMap);
 
-        if (gameWordMap.join("") === randomWord.join("")) {
-          console.log(centerBoxedMessage(chalk.bgGreen.black.bold("Correct Word: ", randomWord.join(""))));
-          console.log(centerBoxedMessage(chalk.bgGreen.black.bold(boxedMsgCongrats)));
+        // calling gameWin to check if user won the game
+        if (gameWin(gameWordMap, randomWord)) {
           break;
+        } else {
+          counter -= 1;
         }
-
-        counter -= 1;
-        
       } while (counter > 0);
 
+      // checking if counter is 0 then print msg game over
       if (counter === 0) {
         console.log(centerBoxedMessage(chalk.bgRed.bold(boxedMsgGameOver)));
       }
-
-      console.log("________________________");
       break;
 
+
+
+    
     case "Fruits":
       const fruitsData = await readFileAsync("./Sample-words/fruits.txt");
       const randomWordFruits = getRandomWord(fruitsData);
-      console.log("random word", randomWord);
+      console.log("random word", randomWordFruits);
+    
       const gameWordMapFruits = gameWordPuzzle(randomWordFruits);
-      let counterFruits = gameWordMap.length + 5;
+      let counterFruits = gameWordMapFruits.length + 5;
+
       console.log("Length of the word: ", gameWordMapFruits.length);
-      console.log("________________________");
+      console.log(centerBoxedMessage(chalk.bold(gameWordMapFruits)));
+
+      do {
+
+        console.log("Remianing Chances: ", counterFruits);
+        const guessAlphabet = await inquirer.prompt({
+          type: "input",
+          name: "Word",
+          message: "Guess the words step by step >>",
+          validate: (input) => {
+            if (!/^[a-zA-Z]$/.test(input)) {
+              return "Please enter only a single letter.";
+            }
+            return true;
+          },
+        });
+        processGuess(randomWordFruits, guessAlphabet.Word, gameWordMapFruits);
+        if (gameWin(gameWordMapFruits, randomWordFruits)) {
+          break;
+        } else {
+          counterFruits -= 1;
+        }
+
+      } while (counterFruits > 0);
+
+      if (counterFruits === 0) {
+        console.log(centerBoxedMessage(chalk.bgRed.bold(boxedMsgGameOver)));
+      }
       break;
 
+
+
+    
     case "Furniture":
       const furnitureData = await readFileAsync("./Sample-words/furniture.txt");
       const randomWordFurniture = getRandomWord(furnitureData);
-      console.log("random word", randomWord);
+      console.log("random word", randomWordFurniture);
       const gameWordMapFurniture = gameWordPuzzle(randomWordFurniture);
-      let counterFurniture = gameWordMap.length + 5;
+      let counterFurniture = gameWordMapFurniture.length + 5;
       console.log("Length of the word: ", gameWordMapFurniture.length);
-      console.log("________________________");
+      console.log(centerBoxedMessage(chalk.bold(gameWordMapFurniture)));
+
+      do {
+
+        console.log("Remianing Chances: ", counterFurniture);
+        const guessAlphabet = await inquirer.prompt({
+          type: "input",
+          name: "Word",
+          message: "Guess the words step by step >>",
+          validate: (input) => {
+            if (!/^[a-zA-Z]$/.test(input)) {
+              return "Please enter only a single letter.";
+            }
+            return true;
+          },
+        });
+        processGuess(randomWordFurniture, guessAlphabet.Word, gameWordMapFurniture);
+        if (gameWin(gameWordMapFurniture, randomWordFurniture)) {
+          break;
+        } else {
+          counterFurniture -= 1;
+        }
+
+      } while (counterFurniture > 0);
+
+      if (counterFurniture === 0) {
+        console.log(centerBoxedMessage(chalk.bgRed.bold(boxedMsgGameOver)));
+      }
       break;
+
+
+
 
     case "Quit":
       console.log("Exiting program...\n");
       process.exit(0);
       break;
 
+
+
+    
     default:
-      console.log(`This is an invalid option..!\NTry again..!`);
+      console.log(`This is an invalid option..!\nTry again..!`);
       break;
   }
 } while (true);
